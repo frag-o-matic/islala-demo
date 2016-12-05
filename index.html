@@ -1,0 +1,116 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <title>Is Lala</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/site.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/container.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/header.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/image.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/menu.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/form.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/input.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/button.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/list.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/message.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/form.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/components/transition.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <style type="text/css">
+      body {
+      background-color: #0E2E3B;
+      }
+      body > .grid {
+      height: 100%;
+      }
+      .image {
+      margin-top: -100px;
+      }
+      .column {
+      max-width: 450px;
+      }
+      .content {
+      color: #FFFFFF;
+      }
+      .ui.teal.button {
+      color: #fff;
+      }
+      .result-box{
+      /*background: url('static/img/cake.png') no-repeat left center;*/
+      padding: 64px 0 64px 150px;
+      text-align: left;
+      }
+      .result-box h1.ui.header{
+      font-size: 3.5em;
+      color: #fff !important;
+      }
+      .result-box a{
+      color:#74DEED;
+      }
+    </style>
+    <script>
+      $(document).ready(function() {
+          //don't worry about this. I just copied it off of v's site lol
+          $('.ui.form')
+            .form({
+              fields: {
+                username: {
+                    identifier: 'coname',
+                    rules: [
+                      {
+                        type   : 'empty',
+                        prompt : 'Enter a valid company name!'
+                      }
+                    ]
+                }
+              }
+            });
+          
+          //select element with `id` as `submit` (which is the big (and only) button on the page) and attach a click listener to it
+          $('#submit').click(function(){
+            var coname = $('#coname').val(); //get value of `coname`
+            // send an AJAX GET to `islala`
+            $.get('/islala', {coname: coname}).done(function(data){
+              swal('So...', data.responseString); //use the sweetalert library to show the response. Fancy.
+            }); 
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Find out if a company is <em>Lala</em>
+          </div>
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" id="coname" name="coname" placeholder="Company Name">
+              </div>
+            </div>
+            <div class="ui fluid large teal button" id="submit" >Submit</div>
+          </div>
+          <div class="ui error message"></div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
